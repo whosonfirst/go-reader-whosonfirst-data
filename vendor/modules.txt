@@ -1,0 +1,33 @@
+# github.com/aaronland/go-roster v0.0.2
+github.com/aaronland/go-roster
+# github.com/golang/protobuf v1.2.0
+github.com/golang/protobuf/proto
+# github.com/google/go-github v17.0.0+incompatible
+github.com/google/go-github/github
+# github.com/google/go-querystring v1.0.0
+github.com/google/go-querystring/query
+# github.com/mitchellh/go-wordwrap v1.0.1
+github.com/mitchellh/go-wordwrap
+# github.com/whosonfirst/go-reader v0.2.0
+github.com/whosonfirst/go-reader
+# github.com/whosonfirst/go-reader-github v0.2.0
+github.com/whosonfirst/go-reader-github
+# github.com/whosonfirst/go-whosonfirst-sources v0.1.0
+github.com/whosonfirst/go-whosonfirst-sources
+github.com/whosonfirst/go-whosonfirst-sources/sources
+# github.com/whosonfirst/go-whosonfirst-uri v0.2.0
+github.com/whosonfirst/go-whosonfirst-uri
+# golang.org/x/net v0.0.0-20190108225652-1e06a53dbb7e
+golang.org/x/net/context
+golang.org/x/net/context/ctxhttp
+# golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+golang.org/x/oauth2
+golang.org/x/oauth2/internal
+# google.golang.org/appengine v1.4.0
+google.golang.org/appengine/internal
+google.golang.org/appengine/internal/base
+google.golang.org/appengine/internal/datastore
+google.golang.org/appengine/internal/log
+google.golang.org/appengine/internal/remote_api
+google.golang.org/appengine/internal/urlfetch
+google.golang.org/appengine/urlfetch
