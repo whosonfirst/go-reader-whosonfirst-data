@@ -74,7 +74,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	return r, nil
 }
 
-func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadCloser, error) {
+func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadSeekCloser, error) {
 
 	id, _, err := wof_uri.ParseURI(uri)
 
