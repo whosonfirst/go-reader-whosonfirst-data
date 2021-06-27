@@ -62,6 +62,13 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		org = "whosonfirst-data"
 	}
 
+	// This is a specific whosonfirst-data -ism
+	// https://github.com/whosonfirst-data/whosonfirst-data/issues/1919
+
+	if branch == "" && org == "whosonfirst-data" {
+		branch = "master"
+	}
+
 	fa_uri := q.Get("findingaid-uri")
 
 	if fa_uri == "" {

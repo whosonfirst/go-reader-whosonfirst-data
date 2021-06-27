@@ -8,6 +8,8 @@ import (
 	"testing"
 )
 
+const PATH_SFO string = "102/527/513/102527513.geojson"
+
 func TestWhosOnFirstDataReader(t *testing.T) {
 
 	ctx := context.Background()
@@ -18,37 +20,7 @@ func TestWhosOnFirstDataReader(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	rel_path := "101/736/545/101736545.geojson"
-
-	fh, err := r.Read(ctx, rel_path)
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	defer fh.Close()
-
-	_, err = io.Copy(ioutil.Discard, fh)
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-}
-
-func TestSFOMuseumDataReader(t *testing.T) {
-
-	ctx := context.Background()
-
-	r, err := reader.NewReader(ctx, "whosonfirst-data://?organization=sfomuseum-data")
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	rel_path := "172/956/253/7/1729562537.geojson"
-
-	fh, err := r.Read(ctx, rel_path)
+	fh, err := r.Read(ctx, PATH_SFO)
 
 	if err != nil {
 		t.Fatal(err)

@@ -290,6 +290,8 @@ github.com/whosonfirst/go-whosonfirst-crawl v0.2.1 h1:nNG7r7/4MaII/NM8Df2oqgfgVN
 github.com/whosonfirst/go-whosonfirst-crawl v0.2.1/go.mod h1:MTD1TCgAkXlAtysPU98ylrz9Y5+ZCfRrsrBnRyiH/t8=
 github.com/whosonfirst/go-whosonfirst-findingaid v0.0.3 h1:9kJhvIUacKz8Uz6K/dxRc/4I0niXeA8VOIhtuRuEUiU=
 github.com/whosonfirst/go-whosonfirst-findingaid v0.0.3/go.mod h1:/jVL5PnEV/NImGZn6MJYKooCQA/ImKAVF7Pq5QhXfdE=
+github.com/whosonfirst/go-whosonfirst-findingaid v0.0.4 h1:e9BSGwm849nl6kyy5jBRAdzDROOftWTmkP0dNuvF5NY=
+github.com/whosonfirst/go-whosonfirst-findingaid v0.0.4/go.mod h1:/jVL5PnEV/NImGZn6MJYKooCQA/ImKAVF7Pq5QhXfdE=
 github.com/whosonfirst/go-whosonfirst-iterate v1.1.2 h1:+XOeYOpCixtB2Zddicjbr9DSuOBDSaA2JdZY7V3QDao=
 github.com/whosonfirst/go-whosonfirst-iterate v1.1.2/go.mod h1:MOA6QCBONVG98p8kA8HaoBEAmv83jW4SNTfNhHpP9+o=
 github.com/whosonfirst/go-whosonfirst-sources v0.1.0 h1:JuKLa6KWke22jBfJ1pM9WQHoz1/3pbDv2C+aR+THPPQ=
