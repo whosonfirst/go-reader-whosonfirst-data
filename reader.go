@@ -6,13 +6,12 @@ import (
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	wof_reader "github.com/whosonfirst/go-reader"
-	wof_uri "github.com/whosonfirst/go-whosonfirst-uri"
+	"github.com/whosonfirst/go-whosonfirst-findingaid"
+	"github.com/whosonfirst/go-whosonfirst-findingaid/repo"
 	"io"
 	_ "log"
-	"net/http"
 	"net/url"
 	"sync"
 	"time"
@@ -27,6 +26,7 @@ type WhosOnFirstDataReader struct {
 	branch       string
 	repos        *sync.Map
 	readers      *sync.Map
+	resolver     findingaid.Resolver
 }
 
 func init() {
@@ -62,6 +62,18 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		org = "whosonfirst-data"
 	}
 
+	fa_uri := q.Get("findingaid-uri")
+
+	if fa_uri == "" {
+		fa_uri = "repo-http"
+	}
+
+	resolver, err := findingaid.NewResolver(ctx, fa_uri)
+
+	if err != nil {
+		return nil, err
+	}
+
 	rate := time.Second / 3
 	throttle := time.Tick(rate)
 
@@ -76,18 +88,13 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		branch:       branch,
 		repos:        repos,
 		readers:      readers,
+		resolver:     resolver,
 	}
 
 	return r, nil
 }
 
 func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadSeekCloser, error) {
-
-	id, _, err := wof_uri.ParseURI(uri)
-
-	if err != nil {
-		return nil, err
-	}
 
 	<-r.throttle
 
@@ -102,7 +109,7 @@ func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadSe
 
 	if repo == "" {
 
-		this_repo, err := r.getRepo(ctx, id)
+		this_repo, err := r.getRepo(ctx, uri)
 
 		if err != nil {
 			return nil, err
@@ -156,49 +163,35 @@ func (r *WhosOnFirstDataReader) getReader(ctx context.Context, repo string) (wof
 	return gh_r, nil
 }
 
-func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, id int64) (string, error) {
+func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, uri string) (string, error) {
 
-	v, ok := r.repos.Load(id)
+	v, ok := r.repos.Load(uri)
 
 	if ok {
-		repo := v.(string)
-		return repo, nil
+		repo_name := v.(string)
+		return repo_name, nil
 	}
 
-	// MAKE ME CUSTOMIZABLE
-	uri := fmt.Sprintf("https://data.whosonfirst.org/findingaid/%d", id)
-
-	rsp, err := http.Get(uri)
+	fa_rsp, err := r.resolver.ResolveURI(ctx, uri)
 
 	if err != nil {
 		return "", err
 	}
 
-	defer rsp.Body.Close()
+	var repo_name string
 
-	// https://github.com/whosonfirst/go-whosonfirst-findingaid/blob/master/repo/repo.go
+	switch fa_rsp.(type) {
+	case *repo.FindingAidResponse:
 
-	type FindingAidResponse struct {
-		ID   int64  `json:"id"`
-		Repo string `json:"repo"`
-		URI  string `json:"uri"`
+		rsp := fa_rsp.(*repo.FindingAidResponse)
+		repo_name = rsp.Repo
+	default:
+		return "", fmt.Errorf("Unexpected response type from finding aid")
 	}
-
-	var fa_rsp *FindingAidResponse
-
-	dec := json.NewDecoder(rsp.Body)
-
-	err = dec.Decode(&fa_rsp)
-
-	if err != nil {
-		return "", err
-	}
-
-	repo := fa_rsp.Repo
 
 	go func() {
-		r.repos.Store(id, repo)
+		r.repos.Store(uri, repo_name)
 	}()
 
-	return repo, nil
+	return repo_name, nil
 }
