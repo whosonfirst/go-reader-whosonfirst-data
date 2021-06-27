@@ -4,29 +4,29 @@ github.com/aaronland/go-roster
 github.com/golang/protobuf/proto
 # github.com/google/go-github v17.0.0+incompatible
 github.com/google/go-github/github
-# github.com/google/go-querystring v1.0.0
+# github.com/google/go-querystring v1.1.0
 github.com/google/go-querystring/query
 # github.com/mitchellh/go-wordwrap v1.0.1
 ## explicit
 github.com/mitchellh/go-wordwrap
-# github.com/whosonfirst/go-ioutil v0.0.1
+# github.com/whosonfirst/go-ioutil v1.0.0
 github.com/whosonfirst/go-ioutil
 # github.com/whosonfirst/go-reader v0.5.0
 ## explicit
 github.com/whosonfirst/go-reader
-# github.com/whosonfirst/go-reader-github v0.4.1
+# github.com/whosonfirst/go-reader-github v0.4.2
 ## explicit
 github.com/whosonfirst/go-reader-github
 # github.com/whosonfirst/go-whosonfirst-sources v0.1.0
 github.com/whosonfirst/go-whosonfirst-sources
 github.com/whosonfirst/go-whosonfirst-sources/sources
-# github.com/whosonfirst/go-whosonfirst-uri v0.2.0
+# github.com/whosonfirst/go-whosonfirst-uri v1.0.1
 ## explicit
 github.com/whosonfirst/go-whosonfirst-uri
 # golang.org/x/net v0.0.0-20200822124328-c89045814202
 golang.org/x/net/context
 golang.org/x/net/context/ctxhttp
-# golang.org/x/oauth2 v0.0.0-20210220000619-9bb904979d93
+# golang.org/x/oauth2 v0.0.0-20210622215436-a8dc77f794b6
 golang.org/x/oauth2
 golang.org/x/oauth2/internal
 # google.golang.org/appengine v1.6.6
