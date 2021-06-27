@@ -44,7 +44,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	u, err := url.Parse(uri)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to parse reader URI '%s', %w", uri, err)
 	}
 
 	q := u.Query()
@@ -65,13 +65,13 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	fa_uri := q.Get("findingaid-uri")
 
 	if fa_uri == "" {
-		fa_uri = "repo-http"
+		fa_uri = "repo-http://"
 	}
 
 	resolver, err := findingaid.NewResolver(ctx, fa_uri)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to create finding aid resolver for '%s', %w", fa_uri, err)
 	}
 
 	rate := time.Second / 3
@@ -105,23 +105,23 @@ func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadSe
 		// pass
 	}
 
-	repo := r.repo
+	repo_name := r.repo
 
-	if repo == "" {
+	if repo_name == "" {
 
 		this_repo, err := r.getRepo(ctx, uri)
 
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("Failed to determine repo for '%s', %w", uri, err)
 		}
 
-		repo = this_repo
+		repo_name = this_repo
 	}
 
-	gh_r, err := r.getReader(ctx, repo)
+	gh_r, err := r.getReader(ctx, repo_name)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to create reader for '%s' (%s), %w", uri, repo_name, err)
 	}
 
 	return gh_r.Read(ctx, uri)
@@ -153,7 +153,7 @@ func (r *WhosOnFirstDataReader) getReader(ctx context.Context, repo string) (wof
 	gh_r, err := wof_reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to create reader for '%s', %w", reader_uri, err)
 	}
 
 	go func() {
@@ -175,7 +175,7 @@ func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, uri string) (string
 	fa_rsp, err := r.resolver.ResolveURI(ctx, uri)
 
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("Failed to resolve repo name for '%s', %w", uri, err)
 	}
 
 	var repo_name string
