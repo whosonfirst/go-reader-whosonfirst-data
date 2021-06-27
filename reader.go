@@ -1,13 +1,17 @@
 package reader
 
 import (
+	_ "github.com/whosonfirst/go-reader-github"
+)
+
+import (
 	"context"
 	"encoding/json"
 	"fmt"
 	wof_reader "github.com/whosonfirst/go-reader"
-	_ "github.com/whosonfirst/go-reader-github"
 	wof_uri "github.com/whosonfirst/go-whosonfirst-uri"
 	"io"
+	_ "log"
 	"net/http"
 	"net/url"
 	"sync"
@@ -20,6 +24,7 @@ type WhosOnFirstDataReader struct {
 	provider     string
 	organization string
 	repo         string
+	branch       string
 	repos        *sync.Map
 	readers      *sync.Map
 }
@@ -47,6 +52,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	provider := q.Get("provider")
 	org := q.Get("organization")
 	repo := q.Get("repo")
+	branch := q.Get("branch")
 
 	if provider == "" {
 		provider = "github"
@@ -67,6 +73,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		provider:     provider,
 		organization: org,
 		repo:         repo,
+		branch:       branch,
 		repos:        repos,
 		readers:      readers,
 	}
@@ -122,9 +129,21 @@ func (r *WhosOnFirstDataReader) getReader(ctx context.Context, repo string) (wof
 		return gh_r, nil
 	}
 
-	gh_uri := fmt.Sprintf("%s://%s/%s", r.provider, r.organization, repo)
+	gh_q := url.Values{}
 
-	gh_r, err := wof_reader.NewReader(ctx, gh_uri)
+	if r.branch != "" {
+		gh_q.Set("branch", r.branch)
+	}
+
+	gh_uri := url.URL{}
+	gh_uri.Scheme = r.provider
+	gh_uri.Host = r.organization
+	gh_uri.Path = repo
+	gh_uri.RawQuery = gh_q.Encode()
+
+	reader_uri := gh_uri.String()
+
+	gh_r, err := wof_reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
 		return nil, err
@@ -146,6 +165,7 @@ func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, id int64) (string, 
 		return repo, nil
 	}
 
+	// MAKE ME CUSTOMIZABLE
 	uri := fmt.Sprintf("https://data.whosonfirst.org/findingaid/%d", id)
 
 	rsp, err := http.Get(uri)
