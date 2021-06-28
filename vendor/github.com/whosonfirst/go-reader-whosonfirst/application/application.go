@@ -1,3 +1,4 @@
+// package application provides common logic for whosonfirst/go-reader related applications targeting Who's On First documents.
 package application
 
 import (

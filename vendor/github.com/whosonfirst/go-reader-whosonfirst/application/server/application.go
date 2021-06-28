@@ -7,8 +7,8 @@ import (
 	"github.com/aaronland/go-http-server"
 	"github.com/sfomuseum/go-flags/flagset"
 	"github.com/whosonfirst/go-reader"
-	"github.com/whosonfirst/go-reader-application"
-	"github.com/whosonfirst/go-reader/www"
+	"github.com/whosonfirst/go-reader-whosonfirst/application"
+	"github.com/whosonfirst/go-reader-whosonfirst/www"
 	"log"
 	"net/http"
 )
