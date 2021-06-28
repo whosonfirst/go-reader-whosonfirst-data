@@ -6,7 +6,7 @@ import (
 
 import (
 	"context"
-	"github.com/whosonfirst/go-reader-whosonfirst/application/server"
+	"github.com/whosonfirst/go-whosonfirst-reader/application/server"
 	"log"
 )
 

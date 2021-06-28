@@ -43,11 +43,6 @@ github.com/whosonfirst/go-reader
 # github.com/whosonfirst/go-reader-github v0.4.2
 ## explicit
 github.com/whosonfirst/go-reader-github
-# github.com/whosonfirst/go-reader-whosonfirst v0.0.0-20210628071813-2844c642b944
-## explicit
-github.com/whosonfirst/go-reader-whosonfirst/application
-github.com/whosonfirst/go-reader-whosonfirst/application/server
-github.com/whosonfirst/go-reader-whosonfirst/www
 # github.com/whosonfirst/go-whosonfirst-crawl v0.2.1
 github.com/whosonfirst/go-whosonfirst-crawl
 # github.com/whosonfirst/go-whosonfirst-findingaid v0.0.4
@@ -58,6 +53,11 @@ github.com/whosonfirst/go-whosonfirst-findingaid/repo
 github.com/whosonfirst/go-whosonfirst-iterate/emitter
 github.com/whosonfirst/go-whosonfirst-iterate/filters
 github.com/whosonfirst/go-whosonfirst-iterate/iterator
+# github.com/whosonfirst/go-whosonfirst-reader v0.1.0
+## explicit
+github.com/whosonfirst/go-whosonfirst-reader/application
+github.com/whosonfirst/go-whosonfirst-reader/application/server
+github.com/whosonfirst/go-whosonfirst-reader/www
 # github.com/whosonfirst/go-whosonfirst-sources v0.1.0
 github.com/whosonfirst/go-whosonfirst-sources
 github.com/whosonfirst/go-whosonfirst-sources/sources
