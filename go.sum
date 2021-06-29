@@ -76,6 +76,8 @@ github.com/Azure/go-autorest/tracing v0.6.0/go.mod h1:+vhtPC754Xsa23ID7GlGsrdKBp
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/GoogleCloudPlatform/cloudsql-proxy v1.22.0/go.mod h1:mAm5O/zik2RFmcpigNjg6nMotDL8ZXJaxKzgGVcSMFA=
+github.com/aaronland/go-http-cache v0.0.1 h1:UlaboYl0Syx/049YTahEvceLn6d5v4HE5tnWGSrNtiE=
+github.com/aaronland/go-http-cache v0.0.1/go.mod h1:CvRIJ5/CDx9B5Y3NhoARDTjqWRM4lnABz2/QXejG8F4=
 github.com/aaronland/go-http-server v0.0.6 h1:KR6zm17QB+Mal0kpn/7vZHzj18W2O5ytGKIF7D1cN/4=
 github.com/aaronland/go-http-server v0.0.6/go.mod h1:6dtsZDrQG0XvUOCL0eaHsUw+7gw3Xa/Nm+XofvkSw2w=
 github.com/aaronland/go-json-query v0.1.0 h1:ZHtbpW8jiGYuOXKDEscWDrDjyVXZhU9Qqfi3nkyI9Ho=
@@ -331,6 +333,8 @@ github.com/whosonfirst/go-whosonfirst-placetypes v0.2.4/go.mod h1:yl0zZ5tfK80C0k
 github.com/whosonfirst/go-whosonfirst-placetypes v0.3.0/go.mod h1:ez0VFkGFbgT2/z2oi3PIuW6FewsZ2+5glyfDD79XEHk=
 github.com/whosonfirst/go-whosonfirst-reader v0.1.0 h1:PUSddQ5Tz1qBBtqOWfvCGXSBNs1+KUQhbBlbLFOUXLU=
 github.com/whosonfirst/go-whosonfirst-reader v0.1.0/go.mod h1:ZWSJaJf3Y1KnzdDxkuP+9+o0fcQHbUGyK1KyokWwRzU=
+github.com/whosonfirst/go-whosonfirst-reader v0.2.0 h1:Nzk+qeLIF5cMwJ7K6WyrNjKgBmj2Gy7DOxNQoThPiYo=
+github.com/whosonfirst/go-whosonfirst-reader v0.2.0/go.mod h1:3vDuu+f+kHP8u/cA6dAgVNHJRYlkGql6NS4VMa46uZc=
 github.com/whosonfirst/go-whosonfirst-sources v0.1.0 h1:JuKLa6KWke22jBfJ1pM9WQHoz1/3pbDv2C+aR+THPPQ=
 github.com/whosonfirst/go-whosonfirst-sources v0.1.0/go.mod h1:EUMHyGzUmqPPxlMmOp+28BFeoBdxxE0HCKRd67lkqGM=
 github.com/whosonfirst/go-whosonfirst-spr/v2 v2.0.0/go.mod h1:tveSSFDn8XoiCeAMarSCn769lA6e3Y0/Qi8S19Jz7Gw=
