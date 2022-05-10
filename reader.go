@@ -8,8 +8,8 @@ import (
 	"context"
 	"fmt"
 	wof_reader "github.com/whosonfirst/go-reader"
-	"github.com/whosonfirst/go-whosonfirst-findingaid"
-	"github.com/whosonfirst/go-whosonfirst-findingaid/repo"
+	"github.com/whosonfirst/go-whosonfirst-findingaid/v2/resolver"
+	"github.com/whosonfirst/go-whosonfirst-uri"	
 	"io"
 	_ "log"
 	"net/url"
@@ -26,7 +26,7 @@ type WhosOnFirstDataReader struct {
 	branch       string
 	repos        *sync.Map
 	readers      *sync.Map
-	resolver     findingaid.Resolver
+	resolver     resolver.Resolver
 }
 
 func init() {
@@ -75,7 +75,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		fa_uri = "repo-http://"
 	}
 
-	resolver, err := findingaid.NewResolver(ctx, fa_uri)
+	rslvr, err := resolver.NewResolver(ctx, fa_uri)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create finding aid resolver for '%s', %w", fa_uri, err)
@@ -95,7 +95,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		branch:       branch,
 		repos:        repos,
 		readers:      readers,
-		resolver:     resolver,
+		resolver:     rslvr,
 	}
 
 	return r, nil
@@ -192,34 +192,29 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 	return gh_r, nil
 }
 
-func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, uri string) (string, error) {
+func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, path string) (string, error) {
 
-	v, ok := r.repos.Load(uri)
+	v, ok := r.repos.Load(path)
 
 	if ok {
 		repo_name := v.(string)
 		return repo_name, nil
 	}
 
-	fa_rsp, err := r.resolver.ResolveURI(ctx, uri)
+	id, _, err := uri.ParseURI(path)
 
 	if err != nil {
-		return "", fmt.Errorf("Failed to resolve repo name for '%s', %w", uri, err)
+		return "", fmt.Errorf("Failed to parse %s, %w", path, err)
 	}
+	
+	repo_name, err := r.resolver.GetRepo(ctx, id)
 
-	var repo_name string
-
-	switch fa_rsp.(type) {
-	case *repo.FindingAidResponse:
-
-		rsp := fa_rsp.(*repo.FindingAidResponse)
-		repo_name = rsp.Repo
-	default:
-		return "", fmt.Errorf("Unexpected response type from finding aid")
+	if err != nil {
+		return "", fmt.Errorf("Failed to resolve repo name for '%s', %w", path, err)
 	}
 
 	go func() {
-		r.repos.Store(uri, repo_name)
+		r.repos.Store(path, repo_name)
 	}()
 
 	return repo_name, nil

@@ -2,7 +2,7 @@ package server
 
 import (
 	"context"
-	"github.com/whosonfirst/algnhsa"
+	"github.com/akrylysov/algnhsa"
 	_ "log"
 	"net/http"
 	"net/url"
@@ -46,7 +46,7 @@ func (s *LambdaServer) Address() string {
 	return s.url.String()
 }
 
-func (s *LambdaServer) ListenAndServe(ctx context.Context, mux *http.ServeMux) error {
+func (s *LambdaServer) ListenAndServe(ctx context.Context, mux http.Handler) error {
 
 	lambda_opts := new(algnhsa.Options)
 
