@@ -2,6 +2,7 @@ package reader
 
 import (
 	_ "github.com/whosonfirst/go-reader-github"
+	_ "github.com/whosonfirst/go-reader-http"
 )
 
 import (
@@ -9,7 +10,7 @@ import (
 	"fmt"
 	wof_reader "github.com/whosonfirst/go-reader"
 	"github.com/whosonfirst/go-whosonfirst-findingaid/v2/resolver"
-	"github.com/whosonfirst/go-whosonfirst-uri"	
+	"github.com/whosonfirst/go-whosonfirst-uri"
 	"io"
 	_ "log"
 	"net/url"
@@ -72,7 +73,38 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	fa_uri := q.Get("findingaid-uri")
 
 	if fa_uri == "" {
-		fa_uri = "repo-http://"
+
+		// START OF cue the Inception Horn
+
+		// See this? We're querying the data.whosonfirst.org S3 bucket
+		// of data for a record in order to glean the repo for that
+		// record to fetch the record (again) from GitHub. This is necessary
+		// in advance of setting up a KV finding aid lookup for all of
+		// Who's On First (20220510/thisisaaronland)
+
+		r, err := url.Parse("https://data.whosonfirst.org")
+
+		if err != nil {
+			return nil, fmt.Errorf("Failed to parse URL, %w", err)
+		}
+
+		rq := r.Query()
+		rq.Set("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0")
+
+		r.RawQuery = rq.Encode()
+		reader_uri := r.String()
+
+		f := new(url.URL)
+		f.Scheme = "reader"
+
+		fq := f.Query()
+		fq.Set("reader", reader_uri)
+		fq.Set("strategy", "uri")
+
+		f.RawQuery = fq.Encode()
+		fa_uri = f.String()
+
+		// END OF cue the Inception Horn
 	}
 
 	rslvr, err := resolver.NewResolver(ctx, fa_uri)
@@ -206,7 +238,7 @@ func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, path string) (strin
 	if err != nil {
 		return "", fmt.Errorf("Failed to parse %s, %w", path, err)
 	}
-	
+
 	repo_name, err := r.resolver.GetRepo(ctx, id)
 
 	if err != nil {
