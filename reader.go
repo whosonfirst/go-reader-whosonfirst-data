@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
-	_ "log"
+	"log/slog"
 	"net/url"
 	"sync"
 	"time"
@@ -149,6 +149,7 @@ func (r *WhosOnFirstDataReader) Read(ctx context.Context, uri string) (io.ReadSe
 		return nil, err
 	}
 
+	slog.Debug("Read URI", "reader", fmt.Sprintf("%T", gh_r), "uri", uri)
 	return gh_r.Read(ctx, uri)
 }
 
@@ -189,6 +190,9 @@ func (r *WhosOnFirstDataReader) getReader(ctx context.Context, uri string) (wof_
 
 func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo string) (wof_reader.Reader, error) {
 
+	logger := slog.Default()
+	logger = logger.With("repo", repo)
+	
 	v, ok := r.readers.Load(repo)
 
 	if ok {
@@ -210,6 +214,8 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 
 	reader_uri := gh_uri.String()
 
+	logger.Debug("Create new reader", "reader_uri", reader_uri)
+	
 	gh_r, err := wof_reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
@@ -225,22 +231,28 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 
 func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, path string) (string, error) {
 
+	logger := slog.Default()
+	logger = logger.With("path", path)
+	
 	v, ok := r.repos.Load(path)
 
 	if ok {
 		repo_name := v.(string)
+		logger.Debug("Return repo from cache", "repo", repo_name)		
 		return repo_name, nil
 	}
 
 	id, _, err := uri.ParseURI(path)
 
 	if err != nil {
+		logger.Debug("Failed to parse path", "error", err)
 		return "", fmt.Errorf("Failed to parse %s, %w", path, err)
 	}
 
 	repo_name, err := r.resolver.GetRepo(ctx, id)
 
 	if err != nil {
+		logger.Debug("Failed to resolve ID", "id", id, "error", err)
 		return "", fmt.Errorf("Failed to resolve repo name for '%s', %w", path, err)
 	}
 
@@ -248,5 +260,6 @@ func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, path string) (strin
 		r.repos.Store(path, repo_name)
 	}()
 
+	logger.Debug("Resolve repo", "repo", repo_name)
 	return repo_name, nil
 }
