@@ -2,12 +2,10 @@ module github.com/whosonfirst/go-reader-whosonfirst-data
 
 go 1.22.1
 
-toolchain go1.23.0
-
 require (
 	github.com/mitchellh/go-wordwrap v1.0.1
 	github.com/whosonfirst/go-reader v1.0.2
-	github.com/whosonfirst/go-reader-github v0.6.10
+	github.com/whosonfirst/go-reader-github v0.6.11
 	github.com/whosonfirst/go-reader-http v0.3.1
 	github.com/whosonfirst/go-whosonfirst-findingaid/v2 v2.8.7
 	github.com/whosonfirst/go-whosonfirst-uri v1.3.0
@@ -51,7 +49,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
-	github.com/sfomuseum/runtimevar v1.1.2 // indirect
+	github.com/sfomuseum/runtimevar v1.2.0 // indirect
 	github.com/tidwall/gjson v1.17.3 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect

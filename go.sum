@@ -148,8 +148,8 @@ github.com/mitchellh/go-wordwrap v1.0.1/go.mod h1:R62XHJLzvMFRBbcrT7m7WgmE1eOyTS
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
-github.com/sfomuseum/runtimevar v1.1.2 h1:YcgxdB39gEqKN1H3wS9E773JsPWYKBVDdk/HF08BLFc=
-github.com/sfomuseum/runtimevar v1.1.2/go.mod h1:nqn9Snni6oTaAwfoBQR32oUzWUDOuL7dNMsEjNvFjyM=
+github.com/sfomuseum/runtimevar v1.2.0 h1:8q06GcN4gEbRcktbe63U6boSymaZJ7rUqCcggwGkFhw=
+github.com/sfomuseum/runtimevar v1.2.0/go.mod h1:JIJ5bC1BmErAX/sIoc2b+cLcrcyKUg4ZiLcIPLLBsfU=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
 github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
@@ -169,8 +169,8 @@ github.com/whosonfirst/go-ioutil v1.0.2/go.mod h1:2dS1vWdAIkiHDvDF8fYyjv6k2NISmw
 github.com/whosonfirst/go-reader v1.0.1/go.mod h1:3RXON51sbyPw8Ca7sxxwOItVfx8SM+KFPR+l2azGxJA=
 github.com/whosonfirst/go-reader v1.0.2 h1:eccnKKSMGR+X1SJyHUZN0/7qE7VbFQULqSVQU0Su3xs=
 github.com/whosonfirst/go-reader v1.0.2/go.mod h1:2w9l/QusYZSiGuEof3RwCHUFnM492SSOF2H7UxS4YIE=
-github.com/whosonfirst/go-reader-github v0.6.10 h1:CWwEI9rElOOwqC2Y89nc8QI6BPrNwqKrP5Sv8InP6k0=
-github.com/whosonfirst/go-reader-github v0.6.10/go.mod h1:G4Zp0XUo56GeeuacGfU0fDHHLxMyXfYOoGPxrZbyl7s=
+github.com/whosonfirst/go-reader-github v0.6.11 h1:P6T6NXWzWDztSEi8z+gQrnJZg+WTaP65jAidD+tbzHE=
+github.com/whosonfirst/go-reader-github v0.6.11/go.mod h1:9ayvYIzQwrptgf4PCj/yFm6V+0wfqjmDcZn7RCbW2s4=
 github.com/whosonfirst/go-reader-http v0.3.1 h1:05cfqxb0OCyoKmaJgyzyX81mXzPe1J29QV/4NqEUMRQ=
 github.com/whosonfirst/go-reader-http v0.3.1/go.mod h1:F8MO2ti0CFmkf/MUAlkkgUklBhHYtgeh1bUAl6IzsgU=
 github.com/whosonfirst/go-whosonfirst-findingaid/v2 v2.8.7 h1:hdMJoMusyJs3vUTxfaO8JI7rd9OMAS23cxIY+hZaHEo=

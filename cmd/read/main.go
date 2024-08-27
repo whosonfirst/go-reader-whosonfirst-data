@@ -9,10 +9,10 @@ import (
 	"os"
 
 	_ "github.com/whosonfirst/go-reader-whosonfirst-data"
-	
+
 	"github.com/mitchellh/go-wordwrap"
 	"github.com/whosonfirst/go-reader"
-	"github.com/whosonfirst/go-whosonfirst-uri"	
+	"github.com/whosonfirst/go-whosonfirst-uri"
 )
 
 func main() {

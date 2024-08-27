@@ -11,10 +11,10 @@ import (
 
 	_ "github.com/whosonfirst/go-reader-github"
 	_ "github.com/whosonfirst/go-reader-http"
-	
+
 	wof_reader "github.com/whosonfirst/go-reader"
 	"github.com/whosonfirst/go-whosonfirst-findingaid/v2/resolver"
-	"github.com/whosonfirst/go-whosonfirst-uri"	
+	"github.com/whosonfirst/go-whosonfirst-uri"
 )
 
 type WhosOnFirstDataReader struct {
@@ -24,6 +24,7 @@ type WhosOnFirstDataReader struct {
 	organization string
 	repo         string
 	branch       string
+	prefix       string
 	repos        *sync.Map
 	readers      *sync.Map
 	resolver     resolver.Resolver
@@ -53,6 +54,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 	org := q.Get("organization")
 	repo := q.Get("repo")
 	branch := q.Get("branch")
+	prefix := q.Get("prefix")
 
 	if provider == "" {
 		provider = "github"
@@ -60,6 +62,10 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 
 	if org == "" {
 		org = "whosonfirst-data"
+	}
+
+	if prefix == "" {
+		prefix = "data"
 	}
 
 	// This is a specific whosonfirst-data -ism
@@ -125,6 +131,7 @@ func NewWhosOnFirstDataReader(ctx context.Context, uri string) (wof_reader.Reade
 		repo:         repo,
 		branch:       branch,
 		repos:        repos,
+		prefix:       prefix,
 		readers:      readers,
 		resolver:     rslvr,
 	}
@@ -192,7 +199,7 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 
 	logger := slog.Default()
 	logger = logger.With("repo", repo)
-	
+
 	v, ok := r.readers.Load(repo)
 
 	if ok {
@@ -206,6 +213,10 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 		gh_q.Set("branch", r.branch)
 	}
 
+	if r.prefix != "" {
+		gh_q.Set("prefix", r.prefix)
+	}
+
 	gh_uri := url.URL{}
 	gh_uri.Scheme = r.provider
 	gh_uri.Host = r.organization
@@ -215,7 +226,7 @@ func (r *WhosOnFirstDataReader) getReaderWithRepo(ctx context.Context, repo stri
 	reader_uri := gh_uri.String()
 
 	logger.Debug("Create new reader", "reader_uri", reader_uri)
-	
+
 	gh_r, err := wof_reader.NewReader(ctx, reader_uri)
 
 	if err != nil {
@@ -233,12 +244,12 @@ func (r *WhosOnFirstDataReader) getRepo(ctx context.Context, path string) (strin
 
 	logger := slog.Default()
 	logger = logger.With("path", path)
-	
+
 	v, ok := r.repos.Load(path)
 
 	if ok {
 		repo_name := v.(string)
-		logger.Debug("Return repo from cache", "repo", repo_name)		
+		logger.Debug("Return repo from cache", "repo", repo_name)
 		return repo_name, nil
 	}
 
