@@ -1,21 +1,20 @@
 package reader
 
 import (
-	_ "github.com/whosonfirst/go-reader-github"
-	_ "github.com/whosonfirst/go-reader-http"
-)
-
-import (
 	"context"
 	"fmt"
-	wof_reader "github.com/whosonfirst/go-reader"
-	"github.com/whosonfirst/go-whosonfirst-findingaid/v2/resolver"
-	"github.com/whosonfirst/go-whosonfirst-uri"
 	"io"
 	_ "log"
 	"net/url"
 	"sync"
 	"time"
+
+	_ "github.com/whosonfirst/go-reader-github"
+	_ "github.com/whosonfirst/go-reader-http"
+	
+	wof_reader "github.com/whosonfirst/go-reader"
+	"github.com/whosonfirst/go-whosonfirst-findingaid/v2/resolver"
+	"github.com/whosonfirst/go-whosonfirst-uri"	
 )
 
 type WhosOnFirstDataReader struct {

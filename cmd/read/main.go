@@ -4,13 +4,15 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/mitchellh/go-wordwrap"
-	"github.com/whosonfirst/go-reader"
-	_ "github.com/whosonfirst/go-reader-whosonfirst-data"
-	"github.com/whosonfirst/go-whosonfirst-uri"
 	"io"
 	"log"
 	"os"
+
+	_ "github.com/whosonfirst/go-reader-whosonfirst-data"
+	
+	"github.com/mitchellh/go-wordwrap"
+	"github.com/whosonfirst/go-reader"
+	"github.com/whosonfirst/go-whosonfirst-uri"	
 )
 
 func main() {
